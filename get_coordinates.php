@@ -1,34 +1,31 @@
 <?php
 include "db.php";
 
-$sql = "SELECT Items FROM course WHERE JSON_CONTAINS(Items, '{\"type\": \"Point\"}') OR JSON_CONTAINS(Items, '{\"type\": \"MultiPoint\"}')";
+$data = array(); // Массив для хранения данных
 
-$result = $conn->query($sql);
+try {
+    $sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]')) AS x, 
+                   JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')) AS y
+            FROM course
+            WHERE JSON_CONTAINS(`На карте`, '{\"type\": \"Point\"}')";
 
-$data = array(); 
+    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $items = json_decode($row['Items'], true);
-
-        foreach ($items as $item) {
-            if ($item['type'] === 'Point') {
-                $coordinates = $item['coordinates'];
-                $data[] = array('type' => 'Feature', 'geometry' => array('type' => 'Point', 'coordinates' => $coordinates));
-            } elseif ($item['type'] === 'MultiPoint') {
-                $multiCoordinates = $item['coordinates'];
-                foreach ($multiCoordinates as $coords) {
-                    $data[] = array('type' => 'Feature', 'geometry' => array('type' => 'Point', 'coordinates' => $coords));
-                }
-            }
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $data[] = array('type' => 'Feature', 'geometry' => array('type' => 'Point', 'coordinates' => [$row['y'], $row['x']]));
         }
+        $result->free_result();
+    } else {
+        throw new Exception("Ошибка выполнения запроса: " . $conn->error);
     }
+
     $conn->close();
 
-    
+    // Возвращаем данные в формате JSON
     header('Content-Type: application/json');
     echo json_encode(array('type' => 'FeatureCollection', 'features' => $data));
-} else {
-    echo "0 результатов";
+} catch (Exception $e) {
+    echo "Ошибка: " . $e->getMessage();
 }
 ?>
