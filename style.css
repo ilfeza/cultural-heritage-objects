@@ -1,8 +1,9 @@
 .map {
-	width: 500px;
-	height: 500px;
-	background-color: #333;
+    width: 90vw;
+    height: 90vh;
+    background-color: #333;
 }
+ 
 
 [class*="copyrights-pane"] {
 	display: none !important;
@@ -10,4 +11,8 @@
 
 [class*="ground-pane"] {
 	filter: grayscale(1);
+}
+body, html {
+    margin: 0;
+    padding: 0;
 }

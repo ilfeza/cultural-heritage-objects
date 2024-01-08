@@ -1,26 +1,28 @@
-let center = [48.8866527839977, 2.34310679732974];
+ymaps.ready(init);
 
 function init() {
-    let map = new ymaps.Map('map-test', {
-        center: center,
-        zoom: 17
+    var map = new ymaps.Map('map-test', {
+        center: [55.755863, 37.617700],
+        zoom: 10
     });
 
-    map.controls.remove('geolocationControl');
-    map.controls.remove('searchControl');
-    map.controls.remove('trafficControl');
-    map.controls.remove('typeSelector');
-    map.controls.remove('fullscreenControl');
-    map.controls.remove('zoomControl');
-    map.controls.remove('rulerControl');
-    //map.behaviors.disable(['scrollZoom']);
+    var objectManager = new ymaps.ObjectManager({
+        clusterize: true,
+        gridSize: 32,
+        clusterDisableClickZoom: true
+    });
 
-    // Добавление меток на карту из массива points
-    for (let i = 0; i < points.length; i++) {
-        let point = points[i];
-        let placemark = new ymaps.Placemark([point.x, point.y]);
-        map.geoObjects.add(placemark);
-    }
+    map.geoObjects.add(objectManager);
+
+
+    fetch('get_coordinates.php')
+        .then(response => response.json())
+        .then(data => {
+            objectManager.add(data);
+        })
+        .catch(error => {
+            console.error('Ошибка получения данных:', error);
+        });
+
+  
 }
-
-ymaps.ready(init);
