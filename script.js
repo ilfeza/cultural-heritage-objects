@@ -3,48 +3,76 @@ ymaps.ready(init);
 function init() {
     var map = new ymaps.Map('map-test', {
         center: [55.755863, 37.617700],
-        zoom: 4
+        zoom: 10
     });
+    map.controls.remove('searchControl'); // удаляем поиск
+    map.controls.remove('trafficControl'); // удаляем контроль трафика
+    map.controls.remove('typeSelector'); // удаляем тип
+    map.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
+    map.controls.remove('zoomControl'); // удаляем контрол зуммирования
+    map.controls.remove('rulerControl'); // удаляем контрол правил
+    map.controls.remove('geolocationControl'); // удаляем геолокац
 
-    var objectManager = new ymaps.ObjectManager({
+    var clusterer = new ymaps.Clusterer({
         clusterize: true,
         gridSize: 200,
         clusterDisableClickZoom: true,
-        geoObjectOpenBalloonOnClick: true,
-        clusterOpenBalloonOnClick: true,
         clusterBalloonContentLayout: 'cluster#balloonCarousel',
-        clusterBalloonPanelMaxMapArea: 0
+        clusterBalloonPanelMaxMapArea: 0,
+        clusterIcons: [
+            {
+                href: 'images/marker.svg',
+                size: [40, 40],
+                offset: [-20, -20]
+            },
+            {
+                href: 'images/marker.svg',
+                size: [60, 60],
+                offset: [-30, -30]
+            }],
+            clusterIconContentLayout: null
+        
     });
 
-    map.geoObjects.add(objectManager);
+    map.geoObjects.add(clusterer);
 
     fetch('get_coordinates.php')
         .then(response => response.json())
         .then(data => {
-            // Добавляем объекты в objectManager
-            objectManager.add(data, 'object');
+            var features = data.features;
 
-            // Добавление обработчика клика для открытия балуна
-           // ... (ваш предыдущий JavaScript код)
+            var promises = features.map(feature => {
+                var coordinates = feature.geometry.coordinates.map(parseFloat);
+                var properties = feature.properties;
 
-    objectManager.objects.events.add('click', function (e) {
-        var objectId = e.get('objectId');
-        var object = objectManager.objects.getById(objectId);
-        objectManager.clusters.state.set('activeObject', object);
+                return new Promise((resolve, reject) => {
+                    var balloonContent = '<div class="balcont"><h3>' + properties.balloonContentHeader + '</h3>';
+                    balloonContent += '<p>Адрес: ' + properties.balloonContentBody + '</p>';
+                    balloonContent += '<img src="' + properties.img.url + '" alt="' + properties.img.title + '"></div>';
 
-        if (object && object.properties.img) {
-            var balloonContent = '<div><h3>' + object.properties.balloonContentHeader + '</h3>';
-            balloonContent += '<p>Адрес: ' + object.properties.balloonContentBody + '</p>';
-            balloonContent += '<img src="' + object.properties.img.url + '" alt="' + object.properties.img.title + '"></div>';
+                    var placemark = new ymaps.Placemark(coordinates, properties, {
+                        balloonContentBody: balloonContent,
+                        iconLayout: 'default#image',
+                        iconImageHref: 'images/marker.svg',
+                        iconImageSize: [40, 40],
+                        iconImageOffset: [-19, -44]
+                    });
 
-            objectManager.objects.balloon.open(objectId, balloonContent);
-        } else {
-            console.error('Object or img property not found');
-        }
-    });
+                    placemark.events.add('click', function (e) {
+                        map.balloon.open(placemark.geometry.getCoordinates(), placemark.properties.get('balloonContentBody'));
+                    });
 
-// ... (остальной код)
+                    resolve(placemark);
+                });
+            });
 
+            Promise.all(promises)
+                .then(geoObjects => {
+                    clusterer.add(geoObjects);
+                })
+                .catch(error => {
+                    console.error('Error creating placemarks:', error);
+                });
         })
         .catch(error => {
             console.error('Error fetching data:', error);

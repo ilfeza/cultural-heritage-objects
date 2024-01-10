@@ -25,7 +25,7 @@ try {
                 'properties' => array(
                     'name' => $row['name'],
                     'balloonContentHeader' => $row['name'], // Заголовок балуна
-                    'balloonContentBody' => 'Адрес: ' . $row['adress'] . '<br><img src="' . $imageData['url'] . '" alt="' . $imageData['title'] . '"></div>', // Содержимое балуна
+                    'balloonContentBody' => 'Адрес: ' . $row['adress'], // Содержимое балуна
                     'img' => $imageData // Добавление информации об изображении в свойство 'img'
                 )
                 

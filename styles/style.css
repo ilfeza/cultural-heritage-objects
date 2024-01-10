@@ -1,18 +1,56 @@
 .map {
     width: 90vw;
-    height: 90vh;
+    height: 80vh;
+    margin: 5vh auto;
     background-color: #333;
 }
- 
 
 [class*="copyrights-pane"] {
-	display: none !important;
+    display: none !important;
 }
 
 [class*="ground-pane"] {
-	filter: grayscale(1);
+    filter: none;
 }
+
 body, html {
     margin: 0;
     padding: 0;
+}
+
+.ymaps-2-1-79-balloon__layout {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.ymaps-2-1-79-balloon__close + .ymaps-2-1-79-balloon__content {
+    margin-right: 30px;
+    padding-right: 0;
+
+}
+
+.ymaps-2-1-79-b-cluster-carousel_pager_numeric .ymaps-2-1-79-b-cluster-carousel__pager {
+    bottom: -22px;
+    display: table;
+    height: 20px;
+    font: 13px/1 Arial, sans-serif;
+
+    color: #694A38;
+}
+
+/* Ниже я добавил пример скругления, но тут не хватает конкретных значений, поэтому они могут быть вставлены в это место */
+.ymaps.ymaps-2-1-79-balloon.ymaps-2-1-79-balloon_layout_normal.ymaps-2-1-79-balloon_to_top.ymaps-2-1-79-i-custom-scroll {
+    /* Пример скругления */
+    border-radius: 10px;
+ 
+}
+.ymaps-2-1-79-b-cluster-carousel_pager_numeric {
+    display: block;
+    padding: 6px 2px 0;
+    color: #2b4255;
+    text-indent: 0;
+}
+.ymaps-2-1-79-balloon__content .ymaps {
+    width: 10px;
 }
