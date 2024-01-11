@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,10 +28,10 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Главная</a>
+						<a class="nav-link" href="index.php">Главная</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">О нас</a>
+						<a class="nav-link" href="authorization.php">Авторизация</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Услуги</a>

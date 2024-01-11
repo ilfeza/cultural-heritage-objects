@@ -135,3 +135,35 @@ nav.navbar .navbar-nav .nav-link {
 }
 
 
+form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  border: unset;
+  border-bottom: 2px solid #694A38;
+  outline: none;
+}
+
+button {
+  padding: 10px;
+  background: #9C2C46;
+  border: unset;
+  cursor: pointer;
+}
+
+.msg {
+  border: 2px solid #694A38;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.logout {
+  color: #b7625c;
+}
