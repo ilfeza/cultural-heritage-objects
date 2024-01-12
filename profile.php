@@ -38,7 +38,10 @@ if(!isset($_SESSION['user'])){
 						<a class="nav-link" href="authorization.php">Авторизация</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Услуги</a>
+						<a class="nav-link" href="profile.php">Профиль</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="map.html">Карта</a>
 					</li>
 				</ul>
 			</div>

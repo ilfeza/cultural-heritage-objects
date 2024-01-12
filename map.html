@@ -49,11 +49,29 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#">Услуги</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="map.html">Карта</a>
+					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<div id="map-test" class="map"></div>
+	<button id="getCoordinatesBtn">Узнать координаты</button>
+	<form action="inradius.php" method="post">
+		<label for="latitudeInput">Широта:</label>
+		<input type="text" id="latitudeInput" name="latitude">
+		<br>
+		<label for="longitudeInput">Долгота:</label>
+		<input type="text" id="longitudeInput" name="longitude">
+	
+		<label for="radiusInput">Радиус:</label>
+		<input type="text" id="radiusInput" name="radius">
+		<button id="radiusOnMap">Показать на карте</button>
+		<button type="submit">отправить</button>
+	</form>
+
+
 	
 
 	<div class="custom-footer text-white text-center text-lg-start">

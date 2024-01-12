@@ -9,26 +9,22 @@ try {
     JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]')) AS x, 
     JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')) AS y,
     `Объект` AS name,
-    `Полный адрес` AS adress,
-    `Изображение` AS img
+    `Полный адрес` AS adress
     FROM course
-    WHERE JSON_CONTAINS(`На карте`, '{\"type\": \"Point\"}') AND `Изображение` IS NOT NULL";
+    WHERE JSON_CONTAINS(`На карте`, '{\"type\": \"Point\"}')";
 
     $result = $conn->query($sql);
 
     if ($result) {
         while ($row = $result->fetch_assoc()) {
-            $imageData = $row['img'] ? json_decode($row['img'], true) : null; // Проверка на null перед декодированием
             $data[] = array(
                 'type' => 'Feature',
                 'geometry' => array('type' => 'Point', 'coordinates' => [$row['y'], $row['x']]),
                 'properties' => array(
                     'name' => $row['name'],
-                    'balloonContentHeader' => $row['name'], // Заголовок балуна
-                    'balloonContentBody' => 'Адрес: ' . $row['adress'], // Содержимое балуна
-                    'img' => $imageData // Добавление информации об изображении в свойство 'img'
+                    'balloonContentHeader' => $row['name'], 
+                    'balloonContentBody' => 'Адрес: ' . $row['adress'],
                 )
-                
             );
         }
 
@@ -44,6 +40,4 @@ try {
 } catch (Exception $e) {
     echo "Ошибка: " . $e->getMessage();
 }
-
-
 ?>
