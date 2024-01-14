@@ -33,7 +33,7 @@ try {
         throw new Exception("Ошибка выполнения запроса: " . $conn->error);
     }
 
-    $conn->close();
+  
 
     header('Content-Type: application/json');
     echo json_encode(array('type' => 'FeatureCollection', 'features' => $data));

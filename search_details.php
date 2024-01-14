@@ -1,18 +1,5 @@
-<?php 
-include "db.php";
 
-// Получение данных из массива $_POST
-$latitude = isset($_POST['latitude']) ? $_POST['latitude'] : '';
-$longitude = isset($_POST['longitude']) ? $_POST['longitude'] : '';
-$radius = isset($_POST['radius']) ? $_POST['radius'] : '';
 
-// SQL-запрос для выборки объектов в заданном радиусе
-
-?>
-
-<?php
-session_start();
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,9 +8,10 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/palette.scss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <title>Hello, world!</title>
 </head>
@@ -55,40 +43,58 @@ session_start();
 			</div>
 		</div>
 	</nav>
-<body>
-    <h2>Данные из формы:</h2>
-    
+	<?php
+    include "db.php";
 
-    <?php
-    $sql = "SELECT 
-    JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]')) AS x, 
-    JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')) AS y,
-    `Объект` AS name,
-    `Полный адрес` AS adress
-    FROM course
-    WHERE JSON_CONTAINS(`На карте`, '{\"type\": \"Point\"}') AND 
-    HaversineDistance($latitude, $longitude, JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')), JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]'))) <= $radius";
+    if (isset($_GET['id'])) {
+        $courseId = $_GET['id'];
 
-    $result = $conn->query($sql);
+        $sql = "SELECT * FROM course WHERE `Номер в реестре` = $courseId";
+        $result = $conn->query($sql);
 
-    
-    if ($result->num_rows > 0) {
-        // Вывод данных из базы данных
-        while($row = $result->fetch_assoc()) {
-            echo "<p>Название объекта: " . $row["name"] . "</p>";
-            echo "<p>Адрес: " . $row["adress"] . "</p>";
-            echo "<p>Широта: " . $row["x"] . "</p>";
-            echo "<p>Долгота: " . $row["y"] . "</p>";
-            echo "------------------------<br>";
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            echo '<h2>' . $row['Объект'] . '</h2>';
+
+            // Полный адрес
+            if (!empty($row['Полный адрес'])) {
+                echo '<p>Полный адрес: ' . $row['Полный адрес'] . '</p>';
+            }
+
+            // Вид объекта
+            if (!empty($row['Вид объекта'])) {
+                echo '<p>Вид объекта: ' . $row['Вид объекта'] . '</p>';
+            }
+
+            // Принадлежность к Юнеско
+            if (!is_null($row['Принадлежность к Юнеско'])) {
+                $unescoStatus = ($row['Принадлежность к Юнеско'] == 'да') ? 'Принадлежит к Юнеско' : 'Не принадлежит к Юнеско';
+                echo '<p>' . $unescoStatus . '</p>';
+            }
+
+            // Дата создания
+            if (!empty($row['Дата создания'])) {
+                echo '<p>Дата создания: ' . $row['Дата создания'] . '</p>';
+            }
+
+            // Изображение
+            if (!empty($row['Изображение'])) {
+                $imageData = json_decode($row['Изображение'], true);
+                echo '<img src="' . $imageData['url'] . '" alt="' . $imageData['title'] . '">';
+            }
+        } else {
+            echo '<p>not found</p>';
         }
-    } else {
-        echo "<p>Нет данных, удовлетворяющих условиям.</p>";
     }
 
+    
     ?>
-    <div id="map-test" class="map"></div>
 
-    <div class="custom-footer text-white text-center text-lg-start">
+
+    
+
+	<div class="custom-footer text-white text-center text-lg-start">
 		<footer class="bg-body-tertiary text-center">
 			
 			<div class="text-center p-2">
@@ -100,8 +106,22 @@ session_start();
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-	<script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU">
-	</script>
-	<script src="script.js"></script>
+    <script>
+		function liveSearch(event) {
+			event.preventDefault(); // предотвращает отправку формы
+
+			var searchTerm = $('#search').val();
+
+			$.ajax({
+				type: 'POST',
+				url: 'search_data.php',
+				data: { search: searchTerm },
+				success: function(response) {
+					$('#search-results').html(response);
+				}
+			});
+		}
+
+    </script>
 </body>
 </html>

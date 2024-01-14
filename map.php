@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,18 +15,18 @@
 
     <title>Hello, world!</title>
 	<style>
-		/* Стили для балуна */
+		
 		.ymaps-b-balloon {
-			border-radius: 10px; /* Скругление углов */
-			background-color: #ffffff; /* Цвет фона */
-			color: #000000; /* Цвет текста */
+			border-radius: 10px;
+			background-color: #ffffff; 
+			color: #000000;
 			padding: 10px;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень */
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
 		}
 
-		/* Стили для стрелочки балуна */
+		
 		.ymaps-b-balloon__tail {
-			display: none; /* Скрыть стрелочку */
+			display: none; 
 		}
 
 	</style>

@@ -54,24 +54,23 @@ function init() {
             longitudeInput.value = coords[1].toPrecision(6);
 
             if (circle) {
-                // Если круг уже существует, удаляем его с карты
+             
                 map.geoObjects.remove(circle);
             }
 
-            // Создаем круг с указанным радиусом и центром
+            
             var radius = parseFloat(document.getElementById('radiusInput').value);
             circle = new ymaps.Circle([coords, radius], {
-                balloonContent: "Радиус круга - " + radius + " м",
-                hintContent: "Подвинь меня"
+             
             }, {
-                draggable: true,
+          
                 fillColor: "#DB709377",
                 strokeColor: "#990066",
                 strokeOpacity: 0.8,
                 strokeWidth: 5
             });
 
-            // Добавляем круг на карту
+          
             map.geoObjects.add(circle);
 
             map.events.remove('click', clickListener);
@@ -122,36 +121,32 @@ function init() {
         }
     );
 
-    // Добавляем обработчик события для кнопки "Показать на карте"
     document.getElementById('radiusOnMap').addEventListener('click', function (event) {
-        event.preventDefault(); // Предотвращаем стандартное поведение формы
+        event.preventDefault();
     
         var radiusInKm = parseFloat(document.getElementById('radiusInput').value);
-        var radiusInMeters = radiusInKm * 1000; // Преобразование из километров в метры
+        var radiusInMeters = radiusInKm * 1000; 
     
         if (circle) {
-            // Если круг уже существует, удаляем его с карты
+           
             map.geoObjects.remove(circle);
         }
     
-        // Создаем круг с указанным радиусом и центром
+     
         var centerCoords = [
             parseFloat(document.getElementById('latitudeInput').value),
             parseFloat(document.getElementById('longitudeInput').value)
         ];
     
         circle = new ymaps.Circle([centerCoords, radiusInMeters], {
-            balloonContent: "Радиус круга - " + radiusInKm + " км",
-            hintContent: "Подвинь меня"
         }, {
-            draggable: true,
             fillColor: "#DB709377",
             strokeColor: "#990066",
             strokeOpacity: 0.8,
             strokeWidth: 5
         });
     
-        // Добавляем круг на карту
+        
         map.geoObjects.add(circle);
     });
     

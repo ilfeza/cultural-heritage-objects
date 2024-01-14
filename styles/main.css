@@ -135,11 +135,7 @@ nav.navbar .navbar-nav .nav-link {
 }
 
 
-form {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-}
+
 
 input {
   margin: 10px 0;
@@ -166,4 +162,58 @@ button {
 
 .logout {
   color: #b7625c;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+}
+
+.custom-footer {
+  background-color: #9C2C46;
+  color: white;
+  padding-top: 20px;
+  margin-top: auto; 
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.my-carousel {
+  max-width: 50%;
+  margin: auto;
+  margin-bottom: 20px; 
+}
+
+.carousel-inner {
+  width: 200%;
+}
+
+.carousel-item {
+  width: 50%;
+  height: auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .my-carousel {
+      max-width: 80%;
+      margin-bottom: 5px; 
+  }
+
+  .carousel-inner {
+      width: 100%;
+  }
+
+  .carousel-item {
+      width: 100%; 
+      height: auto;
+  }
+}
+
+section {
+  padding: 10px 0;
 }
