@@ -1,4 +1,7 @@
+<?php
+session_start();
 
+?>
 
 <!doctype html>
 <html lang="en">
@@ -19,7 +22,7 @@
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="index.php">
 				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +40,17 @@
 						<a class="nav-link" href="profile.php">Профиль</a>
 					</li>
                     <li class="nav-item">
-						<a class="nav-link" href="map.html">Карта</a>
+						<a class="nav-link" href="search.php">Поиск</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="map.php">Карта</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<?php
+    <div class="container mt-4">
+    <?php
     include "db.php";
 
     if (isset($_GET['id'])) {
@@ -81,7 +88,7 @@
             // Изображение
             if (!empty($row['Изображение'])) {
                 $imageData = json_decode($row['Изображение'], true);
-                echo '<img src="' . $imageData['url'] . '" alt="' . $imageData['title'] . '">';
+                echo '<div class="col-lg-6"><img src="' . $imageData['url'] . '" alt="' . $imageData['title'] . '" class="img-fluid"></div>';
             }
         } else {
             echo '<p>not found</p>';
@@ -90,19 +97,20 @@
 
     
     ?>
+    </div>
+	
 
 
     
 
-	<div class="custom-footer text-white text-center text-lg-start">
-		<footer class="bg-body-tertiary text-center">
-			
-			<div class="text-center p-2">
-				© 2020 Copyright:
-				<a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-			</div>
-		</footer>
-	</div>
+	<div class="custom-footer text-white text-center text-lg-start mt-5">
+        <footer class="bg-body-tertiary text-center">
+            <div class="text-center p-2">
+                © 2020 Copyright:
+                <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+        </footer>
+    </div>
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

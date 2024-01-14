@@ -35,7 +35,7 @@ session_start();
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="index.php">
 				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,35 +44,56 @@ session_start();
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Главная</a>
+						<a class="nav-link" href="index.php">Главная</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">О нас</a>
+						<a class="nav-link" href="authorization.php">Авторизация</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Услуги</a>
+						<a class="nav-link" href="profile.php">Профиль</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="map.html">Карта</a>
+                    <li class="nav-item">
+						<a class="nav-link" href="search.php">Поиск</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="map.php">Карта</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<div id="map-test" class="map"></div>
-	<button id="getCoordinatesBtn">Узнать координаты</button>
-	<form action="inradius.php" method="post">
-		<label for="latitudeInput">Широта:</label>
-		<input type="text" id="latitudeInput" name="latitude">
-		<br>
-		<label for="longitudeInput">Долгота:</label>
-		<input type="text" id="longitudeInput" name="longitude">
 	
-		<label for="radiusInput">Радиус:</label>
-		<input type="text" id="radiusInput" name="radius">
-		<button id="radiusOnMap">Показать на карте</button>
-		<button type="submit">отправить</button>
-	</form>
+
+	<div id="map-test" class="map"></div>
+	
+	<div class="container mt-4">
+	<button id="getCoordinatesBtn" class="btn btn-sm btn-danger mt-2">Координаты</button>
+	
+		<form action="inradius.php" method="post">
+			<div class="row mb-3">
+				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+					<label for="latitudeInput" class="form-label">Широта:</label>
+					<input type="text" id="latitudeInput" name="latitude" class="form-control">
+				</div>
+				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+					<label for="longitudeInput" class="form-label">Долгота:</label>
+					<input type="text" id="longitudeInput" name="longitude" class="form-control">
+				</div>
+				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+					<label for="radiusInput" class="form-label">Радиус:</label>
+					<input type="text" id="radiusInput" name="radius" class="form-control">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					
+					<button id="radiusOnMap" class="btn btn-sm btn-danger mt-2">Показать на карте</button>
+					<button type="submit" class="btn btn-sm btn-danger mt-2">Отправить</button>
+				</div>
+			</div>
+		</form>
+		
+	</div>
 
 
 	

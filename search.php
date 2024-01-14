@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +21,7 @@
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="index.php">
 				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,25 +39,30 @@
 						<a class="nav-link" href="profile.php">Профиль</a>
 					</li>
                     <li class="nav-item">
-						<a class="nav-link" href="map.html">Карта</a>
+						<a class="nav-link" href="search.php">Поиск</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="map.php">Карта</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<main>
-		<form>
-			<label for="search">Search:</label>
-			<input type="text" id="search" name="search" oninput="liveSearch(event)">
+	<main class="container mt-4">
+		<form class="d-flex">
+			<div class="me-2">
+				<label for="search" class="visually-hidden">Search:</label>
+				<input type="text" class="form-control" id="search" name="search" oninput="liveSearch(event)">
+			</div>
+			<button type="submit" class="btn btn-sm btn-danger mt-2">Поиск</button>
 		</form>
 		<div id="search-results"></div>
 	</main>
-	
+
+
 
 	
-
-    
 	
 	<div class="custom-footer text-white text-center text-lg-start">
 		<footer class="bg-body-tertiary text-center">
