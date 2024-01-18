@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('config.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -71,15 +72,15 @@ session_start();
 	
 		<form action="inradius.php" method="post">
 			<div class="row mb-3">
-				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+				<div class="col-md-4"> 
 					<label for="latitudeInput" class="form-label">Широта:</label>
 					<input type="text" id="latitudeInput" name="latitude" class="form-control">
 				</div>
-				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+				<div class="col-md-4">
 					<label for="longitudeInput" class="form-label">Долгота:</label>
 					<input type="text" id="longitudeInput" name="longitude" class="form-control">
 				</div>
-				<div class="col-md-4"> <!-- Reduce width from col-md-6 to col-md-4 -->
+				<div class="col-md-4">
 					<label for="radiusInput" class="form-label">Радиус:</label>
 					<input type="text" id="radiusInput" name="radius" class="form-control">
 				</div>
@@ -87,7 +88,7 @@ session_start();
 			<div class="row mb-3">
 				<div class="col-md-6">
 					
-					<button id="radiusOnMap" class="btn btn-sm btn-danger mt-2">Показать на карте</button>
+					<button id="radiusOnMap" class="btn btn-sm btn-danger mt-2 "onclick="saveCoordinates();">Показать на карте</button>
 					<button type="submit" class="btn btn-sm btn-danger mt-2">Отправить</button>
 				</div>
 			</div>
@@ -110,8 +111,23 @@ session_start();
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-	<script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU">
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<?php echo $apiKey; ?>"></script>
+	<script>
+		
+		function saveCoordinates() {
+			var latitude = parseFloat(document.getElementById("latitudeInput").value);
+			var longitude = parseFloat(document.getElementById("longitudeInput").value);
+			var radius = parseFloat(document.getElementById("radiusInput").value);
+
+			localStorage.setItem("latitude", latitude);
+			localStorage.setItem("longitude", longitude);
+			localStorage.setItem("radius", radius);
+			console.log(latitude, longitude, radius);
+		}
+
+		// Ваш остальной JavaScript код
 	</script>
 	<script src="script.js"></script>
+		
 </body>
 </html>

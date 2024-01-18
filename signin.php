@@ -1,12 +1,15 @@
 <?php
     session_start();
-    require_once 'db.php';
+    include "Objects_DB_Acess.php";
+    $conn = new Objects_DB_Acess;
     $login = $_POST['login'];
     $password = md5($_POST['password']);
 
-    $check_user = mysqli_query($conn, "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password'");
-    if(mysqli_num_rows($check_user)>0){
-        $user = mysqli_fetch_assoc($check_user);
+    $query = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password'";
+    $conn->issue_query($query);
+    if($conn->num_rows > 0){
+        $user = $conn->fetch_array();
+   
 
         $_SESSION['user'] = [
             "id" => $user['id'],

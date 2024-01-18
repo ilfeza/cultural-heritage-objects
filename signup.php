@@ -1,6 +1,7 @@
 <?php
     session_start();
-    require_once 'db.php';
+    include "Objects_DB_Acess.php";
+    $conn = new Objects_DB_Acess;
     
 
     $full_name = $_POST['full_name'];
@@ -12,7 +13,8 @@
     if($password === $password_confirm){
         $password = md5($password);
 
-        mysqli_query($conn, "INSERT INTO `users` (`id`, `full_name`, `login`, `email`, `password`) VALUES (NULL, '$full_name', '$login', '$email', '$password')");
+        $query = "INSERT INTO `users` (`id`, `full_name`, `login`, `email`, `password`) VALUES (NULL, '$full_name', '$login', '$email', '$password')";
+        $conn->issue_query($query);
         
         $_SESSION['message'] = 'Регистрация прошла успешно';
         header('Location: authorization.php');

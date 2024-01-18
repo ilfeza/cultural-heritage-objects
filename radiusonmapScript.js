@@ -1,22 +1,38 @@
 var myMap;
 var circle;
-var geolocation;
 
 ymaps.ready(init);
 
 function init() {
+   
+    var latitude = parseFloat(localStorage.getItem("latitude"));
+    var longitude = parseFloat(localStorage.getItem("longitude"));
+    var radius = parseFloat(localStorage.getItem("radius"));
+    if(radius>1){
+        radius*=13;
+    }
+    else{
+        radius*=13*13
+    }
+
+   
+
+  
+
     var map = new ymaps.Map('map-test', {
-        center: [55.755863, 37.617700],
-        zoom: 15
+        center: [latitude, longitude],
+        zoom: radius,
     });
- 
+
+
+
     map.controls.remove('searchControl');
     map.controls.remove('trafficControl');
     map.controls.remove('typeSelector');
     map.controls.remove('fullscreenControl');
     map.controls.remove('zoomControl');
     map.controls.remove('rulerControl');
-   
+    map.controls.remove('geolocationControl');
 
     var clusterer = new ymaps.Clusterer({
         clusterize: true,
@@ -34,65 +50,14 @@ function init() {
                 href: 'images/marker.svg',
                 size: [60, 60],
                 offset: [-30, -30]
-            }],
+            }
+        ],
         clusterIconContentLayout: null
-    });
-    geolocation = ymaps.geolocation;
-
-    
-    geolocation.get({
-        provider: 'browser',
-        mapStateAutoApply: true
-    }).then(function (result) {
-        var userGeoObject = result.geoObjects.get(0);
-        userGeoObject.options.set('preset', 'islands#greenCircleIcon');
-        userGeoObject.properties.set({
-            balloonContentBody: 'Мое местоположение (определено браузером)'
-        });
-        myMap.geoObjects.add(userGeoObject);
     });
 
     map.geoObjects.add(clusterer);
 
     var clickListener = null;
-
-    document.getElementById('getCoordinatesBtn').addEventListener('click', function () {
-        if (clickListener) {
-            map.events.remove('click', clickListener);
-        }
-
-        clickListener = map.events.add('click', function (e) {
-            var coords = e.get('coords');
-            var latitudeInput = document.getElementById('latitudeInput');
-            var longitudeInput = document.getElementById('longitudeInput');
-
-            latitudeInput.value = coords[0].toPrecision(6);
-            longitudeInput.value = coords[1].toPrecision(6);
-
-            if (circle) {
-             
-                map.geoObjects.remove(circle);
-            }
-
-            
-            var radius = parseFloat(document.getElementById('radiusInput').value);
-            circle = new ymaps.Circle([coords, radius], {
-             
-            }, {
-          
-                fillColor: "#DB709377",
-                strokeColor: "#990066",
-                strokeOpacity: 0.8,
-                strokeWidth: 5
-            });
-
-          
-            map.geoObjects.add(circle);
-
-            map.events.remove('click', clickListener);
-            clickListener = null;
-        });
-    });
 
     fetch('get_coordinates.php')
         .then(response => response.json())
@@ -134,37 +99,5 @@ function init() {
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-        }
-    );
-
-    document.getElementById('radiusOnMap').addEventListener('click', function (event) {
-        event.preventDefault();
-    
-        var radiusInKm = parseFloat(document.getElementById('radiusInput').value);
-        var radiusInMeters = radiusInKm * 1000; 
-    
-        if (circle) {
-           
-            map.geoObjects.remove(circle);
-        }
-    
-     
-        var centerCoords = [
-            parseFloat(document.getElementById('latitudeInput').value),
-            parseFloat(document.getElementById('longitudeInput').value)
-        ];
-    
-        circle = new ymaps.Circle([centerCoords, radiusInMeters], {
-        }, {
-            fillColor: "#DB709377",
-            strokeColor: "#990066",
-            strokeOpacity: 0.8,
-            strokeWidth: 5
         });
-    
-        
-        map.geoObjects.add(circle);
-    });
-    
-    
 }

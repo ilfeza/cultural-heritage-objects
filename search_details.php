@@ -51,16 +51,17 @@ session_start();
 	</nav>
     <div class="container mt-4">
     <?php
-    include "db.php";
+    include "Objects_DB_Acess.php";
+    $conn = new Objects_DB_Acess;
 
     if (isset($_GET['id'])) {
         $courseId = $_GET['id'];
 
-        $sql = "SELECT * FROM course WHERE `Номер в реестре` = $courseId";
-        $result = $conn->query($sql);
+        $query = "SELECT * FROM course WHERE `Номер в реестре` = $courseId";
+        $conn->issue_query($query);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+        if ($conn->num_rows > 0) {
+            $row = $conn->fetch_array();
 
             echo '<h2>' . $row['Объект'] . '</h2>';
 
@@ -74,11 +75,6 @@ session_start();
                 echo '<p>Вид объекта: ' . $row['Вид объекта'] . '</p>';
             }
 
-            // Принадлежность к Юнеско
-            if (!is_null($row['Принадлежность к Юнеско'])) {
-                $unescoStatus = ($row['Принадлежность к Юнеско'] == 'да') ? 'Принадлежит к Юнеско' : 'Не принадлежит к Юнеско';
-                echo '<p>' . $unescoStatus . '</p>';
-            }
 
             // Дата создания
             if (!empty($row['Дата создания'])) {
@@ -116,8 +112,7 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script>
 		function liveSearch(event) {
-			event.preventDefault(); // предотвращает отправку формы
-
+			event.preventDefault();
 			var searchTerm = $('#search').val();
 
 			$.ajax({

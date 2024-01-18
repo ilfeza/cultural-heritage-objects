@@ -13,7 +13,7 @@
     <title>Hello, world!</title>
 </head>
 <body>
-    <!-- Navbar -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 			<a class="navbar-brand" href="index.php">
@@ -44,7 +44,7 @@
 		</div>
 	</nav>
 
-    <!-- Form -->
+
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+
     <div class="custom-footer text-white text-center text-lg-start">
         <footer class="bg-body-tertiary text-center">
             <div class="text-center p-2">
@@ -82,7 +82,7 @@
         </footer>
     </div>
 
-    <!-- Bootstrap JS -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

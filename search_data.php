@@ -1,19 +1,20 @@
 <?php
 
-include "db.php";
+include "Objects_DB_Acess.php";
+$conn = new Objects_DB_Acess;
 
 if (isset($_POST['search'])) {
     $searchTerm = $_POST['search'];
 
-    $sql = "SELECT `Номер в реестре`, `Объект`, `id` FROM course WHERE `Объект` LIKE N'%$searchTerm%' LIMIT 100";
-    $result = $conn->query($sql);
+    $query = "SELECT `Номер в реестре`, `Объект`, `id` FROM course WHERE `Объект` LIKE N'%$searchTerm%' LIMIT 100";
+    $conn->issue_query($query);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+    if ($conn->num_rows > 0) {
+        while ($row = $conn->fetch_array()) {
             echo '<p><a href="search_details.php?id=' . $row['Номер в реестре'] . '">' . $row['Объект'] . '</a></p>';
         }
     } else {
-        echo '<p>No results found</p>';
+        echo '<p>Не найдены результаты поиска</p>';
     }
 }
 $conn->close();

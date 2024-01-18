@@ -1,12 +1,13 @@
 <?php 
-include "db.php";
+include "Objects_DB_Acess.php";
+$conn = new Objects_DB_Acess;
 
-// Получение данных из массива $_POST
+
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : '';
 $longitude = isset($_POST['longitude']) ? $_POST['longitude'] : '';
 $radius = isset($_POST['radius']) ? $_POST['radius'] : '';
 
-// SQL-запрос для выборки объектов в заданном радиусе
+
 ?>
 
 <?php
@@ -33,19 +34,19 @@ session_start();
 
     .data-container {
         display: flex;
-        align-items: flex-start; /* Align to the top */
+        align-items: flex-start; 
         margin: 20px;
     }
 
     .map-container {
         flex: 7;
         margin-right: 20px;
-        height: 100%; /* Set the height to 100% */
+        height: 100%; 
     }
 
     .map {
         width: 100%;
-        height: 500px; /* Set the height to 100% */
+        height: 500px; 
         background-color: #333;
     }
 
@@ -95,6 +96,9 @@ session_start();
 			</div>
 		</div>
 	</nav>
+    <div class="data-php" data-attr="<?=$latitude; ?>" data-attr2="<?=$longitude; ?>" data-attr3="<?=$radius; ?>"></div>
+
+    
 
     <div class="data-container">
         <div class="map-container">
@@ -102,7 +106,7 @@ session_start();
         </div>
         <div class="info-container">
             <?php
-            $sql = "SELECT 
+            $query = "SELECT 
             JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]')) AS x, 
             JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')) AS y,
             `Объект` AS name,
@@ -111,11 +115,11 @@ session_start();
             WHERE JSON_CONTAINS(`На карте`, '{\"type\": \"Point\"}') AND 
             HaversineDistance($latitude, $longitude, JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[1]')), JSON_UNQUOTE(JSON_EXTRACT(`На карте`, '$.coordinates[0]'))) <= $radius";
 
-            $result = $conn->query($sql);
+            $conn->issue_query($query);
 
-            if ($result->num_rows > 0) {
-                // Вывод данных из базы данных
-                while($row = $result->fetch_assoc()) {
+            if ($conn->num_rows > 0) {
+ 
+                while($row = $conn->fetch_array()) {
                     echo "<p><strong>Название объекта:</strong> " . $row["name"] . "</p>";
                     echo "<p>Адрес:</strong> " . $row["adress"] . "</p>";
                 }
@@ -137,6 +141,8 @@ session_start();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU"></script>
-    <script src="script.js"></script>
+ 
+    <script src="radiusonmapScript.js" defer></script>
+
 </body>
 </html>
