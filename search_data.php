@@ -17,6 +17,6 @@ if (isset($_POST['search'])) {
         echo '<p>Не найдены результаты поиска</p>';
     }
 }
-$conn->close();
+
 
 ?>

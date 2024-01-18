@@ -12,7 +12,7 @@ function init() {
         radius*=13;
     }
     else{
-        radius*=13*13
+        radius*=13*4;
     }
 
    
