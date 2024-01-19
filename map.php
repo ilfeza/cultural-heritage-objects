@@ -29,8 +29,32 @@ include('config.php');
 		.ymaps-b-balloon__tail {
 			display: none; 
 		}
+		.text-link {
+			background: none;
+			border: none;
+			color: #888; 
+			text-decoration: none;
+			cursor: pointer;
+			margin: 0; 
+			padding: 0; 
+		}
+		.map {
+			width: 100%;
+			height: 80vh;
+			margin: 5vh auto;
+			background-color: #333;
+			padding-right: 0;
+		}
+		h1 {
+			font-weight: bold;
+			margin-bottom: 2rem;
+		}
+
+
+		
 
 	</style>
+	<title>Объекты культуры</title>
 </head>
 <body>
 	<!-- Меню -->
@@ -64,50 +88,60 @@ include('config.php');
 		</div>
 	</nav>
 	
-
-	<div id="map-test" class="map"></div>
 	
 	<div class="container mt-4">
-	<button id="getCoordinatesBtn" class="btn btn-sm btn-danger mt-2">Координаты</button>
-	
-		<form action="inradius.php" method="post">
-			<div class="row mb-3">
-				<div class="col-md-4"> 
-					<label for="latitudeInput" class="form-label">Широта:</label>
-					<input type="text" id="latitudeInput" name="latitude" class="form-control">
-				</div>
-				<div class="col-md-4">
-					<label for="longitudeInput" class="form-label">Долгота:</label>
-					<input type="text" id="longitudeInput" name="longitude" class="form-control">
-				</div>
-				<div class="col-md-4">
-					<label for="radiusInput" class="form-label">Радиус:</label>
-					<input type="text" id="radiusInput" name="radius" class="form-control">
-				</div>
+	<h4 class="fw-bold mb-4">На этой карте вы можете ознакомиться с различными культурными объектами и также найти интересующие вас места в заданном радиусе</h4>
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<button id="getCoordinatesBtn" class="text-link" onclick="getCoordinates()">Узнать координаты</button>
+				<form action="inradius.php" method="post" onsubmit="return validateForm()">
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<label for="latitudeInput" class="form-label">Широта:</label>
+							<input type="text" id="latitudeInput" name="latitude" class="form-control" placeholder="Введите широту" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<label for="longitudeInput" class="form-label">Долгота:</label>
+							<input type="text" id="longitudeInput" name="longitude" class="form-control" placeholder="Введите долготу" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<label for="radiusInput" class="form-label">Радиус:</label>
+							<input type="text" id="radiusInput" name="radius" class="form-control" placeholder="Введите радиус" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<button id="radiusOnMap" class="text-link" onclick="saveCoordinates()">Показать на карте</button>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-sm btn-danger mt-2">Отправить</button>
+						</div>
+					</div>
+				</form>
 			</div>
-			<div class="row mb-3">
-				<div class="col-md-6">
-					
-					<button id="radiusOnMap" class="btn btn-sm btn-danger mt-2 "onclick="saveCoordinates();">Показать на карте</button>
-					<button type="submit" class="btn btn-sm btn-danger mt-2">Отправить</button>
-				</div>
+			<div class="col-md-6">
+				<div id="map-test" class="map"></div>
 			</div>
-		</form>
-		
+		</div>
 	</div>
 
 
 	
 
-	<div class="custom-footer text-white text-center text-lg-start">
-		<footer class="bg-body-tertiary text-center">
-			
-			<div class="text-center p-2">
-				© 2020 Copyright:
-				<a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-			</div>
-		</footer>
-	</div>
+	<div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
+            <div class="text-center p-2">
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
+            </div>
+        </footer>
+    </div>
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
@@ -125,7 +159,22 @@ include('config.php');
 			console.log(latitude, longitude, radius);
 		}
 
-		// Ваш остальной JavaScript код
+		function validateForm() {
+			var latitude = document.getElementById('latitudeInput').value;
+			var longitude = document.getElementById('longitudeInput').value;
+			var radius = document.getElementById('radiusInput').value;
+
+			if (latitude.trim() === '' || longitude.trim() === '' || radius.trim() === '') {
+				alert('Пожалуйста, заполните все поля.');
+				return false;
+			}
+
+		
+
+			return true;
+		}
+
+	
 	</script>
 	<script src="script.js"></script>
 		

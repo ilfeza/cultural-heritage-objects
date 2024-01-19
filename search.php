@@ -15,7 +15,7 @@ session_start();
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Объекты культуры</title>
 	<style>
 	
 
@@ -105,7 +105,7 @@ session_start();
 	</nav>
 
 	<main class="container mt-4">
-		<a><strong>Здесь вы можете произвести поиск по всем объектам культурного наследия</strong></a>
+		<h4 class="fw-bold mb-4">Здесь вы можете произвести поиск по всем объектам культурного наследия</h4>
 		<div class="search-results">
 			<form class="d-flex" onsubmit="return false;"> 
 			<div class="me-2 w-100">
@@ -132,15 +132,14 @@ session_start();
 
 	
 	
-	<div class="custom-footer text-white text-center text-lg-start">
-		<footer class="bg-body-tertiary text-center">
-			
-			<div class="text-center p-2">
-				© 2020 Copyright:
-				<a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-			</div>
-		</footer>
-	</div>
+	<div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
+            <div class="text-center p-2">
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
+            </div>
+        </footer>
+    </div>
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

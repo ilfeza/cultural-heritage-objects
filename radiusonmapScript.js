@@ -8,6 +8,9 @@ function init() {
     var latitude = parseFloat(localStorage.getItem("latitude"));
     var longitude = parseFloat(localStorage.getItem("longitude"));
     var radius = parseFloat(localStorage.getItem("radius"));
+    console.log('Latitude:', latitude);
+    console.log('Longitude:', longitude);
+    console.log('Radius:', radius);
     if(radius>1){
         radius*=13;
     }

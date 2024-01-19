@@ -13,7 +13,7 @@ session_start();
 	<link rel="stylesheet" href="styles/palette.scss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Объекты культуры</title>
 </head>
 <body>
 	<!-- Меню -->
@@ -52,11 +52,11 @@ session_start();
         <div class="container">
             <h1>Онлайн реестр культурного наследия России</h1>
 			<p>
-				Добро пожаловать на карту культурного богатства России! Наш сайт представляет удобный онлайн-ресурс, включающий интерактивную карту с объектами культурного наследия и справочник, полный увлекательной информации.<br>
-				Откройте для себя многочисленные памятники истории и культуры народов Российской Федерации, исследуйте их расположение и уникальные особенности прямо на нашей карте.<br>
-				Получите доступ к справочнику, содержащему подробные описания каждого объекта, чтобы углубиться в их историю и значение.<br>
-				Путешествуйте по культурному наследию России вместе с нашим сайтом "Карта Культурного Наследия России: Онлайн Реестр".
-			</p>
+                Добро пожаловать на карту культурного богатства России! Наш сайт представляет удобный онлайн-ресурс, включающий интерактивную карту с объектами культурного наследия и справочник, полный увлекательной информации.<br>
+                Откройте для себя многочисленные памятники истории и культуры народов Российской Федерации, исследуйте их расположение и уникальные особенности прямо на нашей карте.<br>
+                Получите доступ к справочнику, содержащему подробные описания каждого объекта, чтобы углубиться в их историю и значение.<br>
+                Путешествуйте по культурному наследию России вместе с нашим сайтом "Карта Культурного Наследия России: Онлайн Реестр".
+            </p>
         </div>
     </section>
 
@@ -105,15 +105,29 @@ session_start();
         </div>
     </div>
 
-	<div class="custom-footer text-white text-center text-lg-start">
-		<footer class="bg-body-tertiary text-center">
-			
-			<div class="text-center p-2">
-				© 2020 Copyright:
-				<a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-			</div>
-		</footer>
-	</div>
+
+    <section class="description">
+        <div class="container">
+         
+			<p>
+                Вы можете изучить объекты, представленные на <a href="map.php">карте</a>, и задать радиус для более детального изучения культурных памятников.
+            </p>
+
+            <p>
+                Кроме того, на нашем сайте доступен удобный <a href="search.php">поиск</a>, который позволяет найти объект по его названию. </br> Приятного вам путешествия по культурным богатствам России!
+            </p>
+
+        </div>
+    </section>
+
+	<div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
+            <div class="text-center p-2">
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
+            </div>
+        </footer>
+    </div>
 	
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

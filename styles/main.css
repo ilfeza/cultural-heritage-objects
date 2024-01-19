@@ -88,10 +88,7 @@ a:hover {
 nav.navbar .navbar-nav .nav-link {
     color: #fff !important; 
 }
-.navbar {
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
+
 .description {
 	text-align: center;
 }
@@ -126,13 +123,32 @@ nav.navbar .navbar-nav .nav-link {
 
 
 .custom-footer {
-    background-color: #9C2C46;
-    color: white;
-    padding-top: 20px;
-    margin-top: 20px; 
-    border-top-left-radius: 15px; 
-    border-top-right-radius: 15px; 
+  background-color: #9C2C46; /* Цвет фона - светлее чем полоска */
+  color: white; /* Черный текст */
+  padding-top: 20px;
+  margin-top: auto;
+  position: relative; /* Добавим позиционирование для ::before псевдоэлемента */
 }
+
+.custom-footer::before {
+  content: ''; /* Создаем псевдоэлемент для полоски в начале */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.08px; /* Высота полоски */
+  background-color: #c796a1; /* Цвет полоски */
+}
+
+.custom-footer a {
+  color: black; /* Черный текст ссылок */
+  text-decoration: none;
+}
+
+.custom-footer a:hover {
+  text-decoration: underline; /* Подчеркивание при наведении */
+}
+
 
 
 
@@ -174,14 +190,7 @@ main {
   flex: 1;
 }
 
-.custom-footer {
-  background-color: #9C2C46;
-  color: white;
-  padding-top: 20px;
-  margin-top: auto; 
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
+
 
 .my-carousel {
   max-width: 50%;

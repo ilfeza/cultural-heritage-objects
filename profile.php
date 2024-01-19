@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['user'])){
-    header('Location: profile');
+    header('Location: authorization.php');
 }
 ?>
 
@@ -17,7 +17,7 @@ if(!isset($_SESSION['user'])){
     <link rel="stylesheet" href="styles/palette.scss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Объекты культуры</title>
 </head>
 <body>
     <!-- Navbar -->
@@ -51,7 +51,7 @@ if(!isset($_SESSION['user'])){
 		</div>
 	</nav>
 
-    <!-- User Info and Logout -->
+
     <div class="container mt-4 text-center">
         <form>
             <h2 class="mt-3"><?= $_SESSION['user']['full_name']?></h2>
@@ -60,17 +60,15 @@ if(!isset($_SESSION['user'])){
         </form>
     </div>
 
-    <!-- Footer -->
-    <div class="custom-footer text-white text-center text-lg-start">
-        <footer class="bg-body-tertiary text-center">
+    <div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
             <div class="text-center p-2">
-                © 2020 Copyright:
-                <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
             </div>
         </footer>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

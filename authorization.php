@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/palette.scss">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Объекты культуры</title>
 </head>
 <body>
 
@@ -73,11 +73,11 @@
     </div>
 
 
-    <div class="custom-footer text-white text-center text-lg-start">
-        <footer class="bg-body-tertiary text-center">
+    <div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
             <div class="text-center p-2">
-                © 2020 Copyright:
-                <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
             </div>
         </footer>
     </div>

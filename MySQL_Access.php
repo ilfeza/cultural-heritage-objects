@@ -37,10 +37,14 @@ class MySQL_Access
                     return (FALSE);
                 }
             }
+
+            // Установка кодировки UTF-8
+            mysqli_set_charset($this->conn_id, 'utf8');
         }
 
         return ($this->conn_id);
     }
+
 
     function disconnect()
     {

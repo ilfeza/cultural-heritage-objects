@@ -1,6 +1,8 @@
 <?php 
 include "Objects_DB_Acess.php";
 $conn = new Objects_DB_Acess;
+include('config.php');
+
 
 
 $latitude = isset($_POST['latitude']) ? $_POST['latitude'] : '';
@@ -61,9 +63,13 @@ session_start();
     .info-container strong {
         font-weight: bold;
     }
+    h4 {
+            margin-top: 20px; 
+            margin-left: 20px;
+        }
 </style>
 
-    <title>Hello, world!</title>
+    <title>Объекты культуры</title>
 </head>
 <body>
 	<!-- Меню -->
@@ -99,8 +105,9 @@ session_start();
     <div class="data-php" data-attr="<?=$latitude; ?>" data-attr2="<?=$longitude; ?>" data-attr3="<?=$radius; ?>"></div>
 
     
-
+    <h4 class="fw-bold mb-4">Объекты, которые были найдены в заданном радиусе</h4>
     <div class="data-container">
+        
         <div class="map-container">
             <div id="map-test" class="map"></div>
         </div>
@@ -130,17 +137,17 @@ session_start();
         </div>
     </div>
 
-    <div class="custom-footer text-white text-center text-lg-start">
-        <footer class="bg-body-tertiary text-center">
+    <div class="custom-footer text-center text-lg-start">
+        <footer class="bg-body-tertiary text-white text-center">
             <div class="text-center p-2">
-                © 2020 Copyright:
-                <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                <a href="https://opendata.mkrf.ru/opendata/7705851331-egrkn" class="text-white">Сайт разработан на основе открытых данных</a>
+                <br/><a href="mailto:ilffezaaa@gmail.com" class="text-white">По всем вопросам обращайтесь на почту: ilffezaaa@gmail.com</a>
             </div>
         </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<?php echo $apiKey; ?>"></script>
  
     <script src="radiusonmapScript.js" defer></script>
 
