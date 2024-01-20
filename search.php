@@ -17,57 +17,62 @@ session_start();
 
     <title>Объекты культуры</title>
 	<style>
-	
+		.search-results.active {
+		opacity: 1;
+		pointer-events: auto;
+		}
 
-.search-results.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+		.search-results .search-input {
+		width: 100%;
+		border: none;
+		padding: 12px 16px;
+		font-size: 16px;
+		outline: none;
+		box-sizing: border-box;
+		}
 
-.search-results .search-input {
-  width: 100%;
-  border: none;
-  padding: 12px 16px;
-  font-size: 16px;
-  outline: none;
-  box-sizing: border-box;
-}
+		.search-results .search-title {
+		font-size: 14px;
+		margin: 16px 0;
+		}
 
-.search-results .search-title {
-  font-size: 14px;
-  margin: 16px 0;
-}
+		.search-results ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		}
 
-.search-results ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+		.search-results ul a {
+		text-decoration: none;
+		font-size: 16px;
+		color: #2b2d42;
+		padding: 12px;
+		display: inline-block;
+		width: 100%;
+		box-sizing: border-box;
+		transition: all 400ms ease;
+		}
 
-.search-results ul a {
-  text-decoration: none;
-  font-size: 16px;
-  color: #2b2d42;
-  font-weight: bold;
-  padding: 12px;
-  display: inline-block;
-  width: 100%;
-  box-sizing: border-box;
-  transition: all 400ms ease;
-}
+		.search-results ul a:hover {
+		background: #dae7eb;
+		}
 
-.search-results ul a:hover {
-  background: #dae7eb;
-}
-.btn-primary {
-    background-color: #a61c3cff;
-    border-color: #a61c3cff;
-}
-.form-control:focus {
-    border-color: #a61c3cff;
-    box-shadow: 0 0 0 0.25rem rgba(166, 28, 60, 0.25);
-}
+		
+		.search-results ul a {
+		font-weight: normal;
+		}
+
+		.btn-primary {
+			background-color: #a61c3cff;
+			border-color: #a61c3cff;
+		}
+
+		.form-control:focus {
+			border-color: #a61c3cff;
+			box-shadow: 0 0 0 0.25rem rgba(166, 28, 60, 0.25);
+		}
 	</style>
+
 	
 	
 	
@@ -75,34 +80,43 @@ session_start();
 <body>
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="index.php">
-				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ms-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">Главная</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="authorization.php">Авторизация</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.php">Профиль</a>
-					</li>
+        <div class="container">
+            <a class="navbar-brand" href="index.php">
+                <img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
+                <h3 style="display: inline-block; margin-left: 10px; color: white">
+                    <a href="index.php" style="text-decoration: none; color: inherit;">Реестр культурного наследия России</a>
+                </h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                        <a class="nav-link" href="map.php">Карта</a>
+                    </li>
                     <li class="nav-item">
-						<a class="nav-link" href="search.php">Поиск</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="map.php">Карта</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                        <a class="nav-link" href="search.php">Поиск</a>
+                    </li>
+                    <?php
+         
+                    if(isset($_SESSION['user'])) {
+     
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="profile.php">Профиль</a>
+                              </li>';
+                    } else {
+
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="authorization.php">Авторизация</a>
+                              </li>';
+                    }
+                    ?>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 	<main class="container mt-4">
 		<h4 class="fw-bold mb-4">Здесь вы можете произвести поиск по всем объектам культурного наследия</h4>
@@ -163,7 +177,7 @@ session_start();
 	<script>
 		function performSearch() {
 			
-			console.log("Выполнение поиска...");
+			
 		}
 	</script>
 </body>

@@ -38,7 +38,7 @@ class MySQL_Access
                 }
             }
 
-            // Установка кодировки UTF-8
+          
             mysqli_set_charset($this->conn_id, 'utf8');
         }
 

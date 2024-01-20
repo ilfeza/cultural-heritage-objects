@@ -49,6 +49,13 @@ include('config.php');
 			font-weight: bold;
 			margin-bottom: 2rem;
 		}
+		.highlight-text {
+			color: #007bff;
+			font-weight: bold;
+			cursor: pointer; 
+
+		}
+
 
 
 		
@@ -59,41 +66,51 @@ include('config.php');
 <body>
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="index.php">
-				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ms-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">Главная</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="authorization.php">Авторизация</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.php">Профиль</a>
-					</li>
+        <div class="container">
+            <a class="navbar-brand" href="index.php">
+                <img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
+                <h3 style="display: inline-block; margin-left: 10px; color: white">
+                    <a href="index.php" style="text-decoration: none; color: inherit;">Реестр культурного наследия России</a>
+                </h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                        <a class="nav-link" href="map.php">Карта</a>
+                    </li>
                     <li class="nav-item">
-						<a class="nav-link" href="search.php">Поиск</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="map.php">Карта</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                        <a class="nav-link" href="search.php">Поиск</a>
+                    </li>
+                    <?php
+         
+                    if(isset($_SESSION['user'])) {
+     
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="profile.php">Профиль</a>
+                              </li>';
+                    } else {
+
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="authorization.php">Авторизация</a>
+                              </li>';
+                    }
+                    ?>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
 	
 	
 	<div class="container mt-4">
 	<h4 class="fw-bold mb-4">На этой карте вы можете ознакомиться с различными культурными объектами и также найти интересующие вас места в заданном радиусе</h4>
 		<div class="row mb-3">
 			<div class="col-md-6">
-				<button id="getCoordinatesBtn" class="text-link" onclick="getCoordinates()">Узнать координаты</button>
+				<p>Если вы знаете координаты, введите их. В противном случае нажмите кнопку "Узнать координаты" и выберите точку на карте.</p>
+				<button id="getCoordinatesBtn" class="highlight-text text-link" onclick="getCoordinates()">Узнать координаты</button>
 				<form action="inradius.php" method="post" onsubmit="return validateForm()">
 					<div class="row mb-3">
 						<div class="col-md-12">
@@ -115,12 +132,21 @@ include('config.php');
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-12">
-							<button id="radiusOnMap" class="text-link" onclick="saveCoordinates()">Показать на карте</button>
+							<p class="mt-2">Нажмите на "Показать на карте", чтобы увидеть введенный радиус на карте.</p>
+							<button id="radiusOnMap" class="text-link highlight-text" onclick="saveCoordinates()">Показать на карте</button>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-sm btn-danger mt-2">Отправить</button>
+							<?php
+							if (isset($_SESSION['user'])) {
+								// Пользователь авторизован, выводим кнопку
+								echo '<button type="submit" class="btn btn-sm btn-danger mt-2">Показать объекты в этом радиусе</button>';
+							} else {
+								// Пользователь не авторизован, выводим надпись
+								echo '<p class="mt-2">Авторизуйтесь, чтобы увидеть объекты в этом радиусе.</p>';
+							}
+							?>
 						</div>
 					</div>
 				</form>
@@ -168,13 +194,8 @@ include('config.php');
 				alert('Пожалуйста, заполните все поля.');
 				return false;
 			}
-
-		
-
 			return true;
 		}
-
-	
 	</script>
 	<script src="script.js"></script>
 		

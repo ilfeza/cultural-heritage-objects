@@ -18,34 +18,44 @@ session_start();
 <body>
 	<!-- Меню -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container">
-			<a class="navbar-brand" href="index.php">
-				<img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ms-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">Главная</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="authorization.php">Авторизация</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="profile.php">Профиль</a>
-					</li>
+        <div class="container">
+            <a class="navbar-brand" href="index.php">
+                <img src="images/museum.svg" alt="Логотип" style="width: 50px; height: auto;">
+                <h3 style="display: inline-block; margin-left: 10px; color: white">
+                    <a href="index.php" style="text-decoration: none; color: inherit;">Реестр культурного наследия России</a>
+                </h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                        <a class="nav-link" href="map.php">Карта</a>
+                    </li>
                     <li class="nav-item">
-						<a class="nav-link" href="search.php">Поиск</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="map.php">Карта</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                        <a class="nav-link" href="search.php">Поиск</a>
+                    </li>
+                    <?php
+         
+                    if(isset($_SESSION['user'])) {
+     
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="profile.php">Профиль</a>
+                              </li>';
+                    } else {
+
+                        echo '<li class="nav-item">
+                                <a class="nav-link" href="authorization.php">Авторизация</a>
+                              </li>';
+                    }
+                    ?>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 	
 
     <section class="description">
